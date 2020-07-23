@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="management.dao.ExpenseDao">
+	<resultMap type="Expense" id="ExpenseMap">
+		<id column="expense_no" property="expenseNo" />
+		<result column="user_no" property="userNo" />
+		<result column="name" property="name" />
+		<result column="use_date" property="useDate" />
+		<result column="use_price" property="usePrice" />
+		<result column="approve_price" property="approvePrice" />
+		<result column="process_status" property="processStatus" />
+		<result column="registration_date" property="registrationDate" />
+		<result column="receipt" property="receipt" />
+		<result column="process_date" property="processDate" />
+		<result column="remark" property="remark" />
+	</resultMap>
+
+	<select id="findAll" resultMap="ExpenseMap">
+select * from expense;
+	</select>
+
+	<select id="findByNo" resultMap="ExpenseMap"
+		parameterType="int">
+	select 
+		* 
+		from 
+		expense
+		where
+		expense_no = #{expenseNo}	
+	</select>
+	<select id="findByUserNo" resultMap="ExpenseMap"
+		parameterType="int">
+	select 
+		* 
+		from 
+		expense
+		where
+		user_no = #{userNo}	
+	</select>
+
+	<insert id="insert" parameterType="Expense">
+		insert into expense
+		(user_no, 
+		name, use_date, use_price, approve_price,
+		 process_status, receipt, 
+		 process_date, remark)
+		values(#{userNo},
+		#{name}, #{useDate}, #{usePrice}, #{approvePrice}, #{processStatus}, 
+		#{receipt}, #{processDate}, #{remark})
+		    <selectKey keyProperty="expenseNo" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from
+		expense
+		where
+		expense_no=#{expenseNo}
+	</delete>
+	
+	<delete id="checkDelete">
+		delete from
+		expense
+		where
+		expense_no=#{expenseNo}
+	</delete>
+
+	<update id="update" parameterType="Expense">
+		update expense
+		<set>
+			<if test="name != null and name != ''">name=#{name},</if>
+			<if test="useDate != null">use_date=#{useDate},</if>
+			<if test="usePrice != null and usePrice != ''">use_price=#{usePrice},</if>
+			<if test="approvePrice != null and approvePrice != ''">approve_price=#{approvePrice},</if>
+			<if test="processStatus != null and processStatus != ''">process_status=#{processStatus},</if>
+			<if test="registrationDate != null">registration_date=#{registrationDate},</if>
+			<if test="receipt != null and receipt != ''">receipt=#{receipt},</if>
+			<if test="processDate != null">process_date=#{processDate},</if>
+			<if test="remark != null and remark != ''">remark=#{remark}</if>
+		</set>
+		where
+		expense_no = #{expenseNo}
+	</update>
+	
+	  <select id="findByKeyword" resultMap="ExpenseMap" parameterType="map">
+    select * 
+    from expense
+    <where>
+      <if test="name != null">name like concat('%', #{name}, '%')</if>
+      <if test="processStatus != null">and process_status like concat('%', #{processStatus}, '%')</if>
+      <if test="registrationDate != null">and registration_date &lt;= #{registrationDate}</if>
+    </where>
+  </select>
+	
+	<select id="listPage" resultMap="ExpenseMap">
+		select *
+		from expense
+		where expense_no >= 0
+		<include refid="searchCondition"></include>
+		order by expense_no desc limit #{pageStart}, #{perPageNum}
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+		from expense
+		where expense_no >= 0
+		<include refid="searchCondition"></include>
+	</select>
+	
+	  
+  
+  <sql id="searchCondition">
+		<if test="searchType != null">
+      <if test="name != null and nameType == 'n'.toString()">
+      and name like concat('%', #{name}, '%')</if>
+      <if test="registrationDate != null regType == 'r'.toString()">
+      and registrationDate >= #{registrationDate}</if>
+      <if test="processStatus != null proType == 'p'.toString()">
+      and process_status like concat('%', #{processStatus}, '%')</if>
+		</if>
+	</sql>
+
+</mapper>

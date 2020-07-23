@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="management.dao.UserDao">
+	<resultMap type="User" id="UserMap">
+		<id column="User_no" property="UserNo" />
+		<result column="user_no" property="userNo" />
+		<result column="name" property="name" />
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+		<result column="image" property="image" />
+	</resultMap>
+
+	<select id="findAll" resultMap="UserMap">
+	select * from User;
+	</select>
+
+	<select id="findByNo" resultMap="UserMap"
+		parameterType="int">
+		select 
+		* 
+		from 
+		User
+		where
+		User_no = #{UserNo} 
+	</select>
+	
+	<select id="findById" resultMap="UserMap" parameterType="string">
+    select 
+	  *
+    from 
+      lms_member
+    where 
+      id=#{id}
+  </select>
+  
+   <select id="findByIdAndPassword" 
+    resultMap="UserMap" 
+    parameterType="map">
+    select 
+      *
+    from lms_member
+    where 
+      id=#{id} 
+      and password=password(#{password})
+  </select>
+
+	<insert id="insert" parameterType="User">
+		insert into User
+		(user_no, 
+		name, id, password, image)
+		values(#{userNo},
+		#{name}, #{id}, #{password}, #{image} )
+		    <selectKey keyProperty="UserNo" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from
+		User
+		where
+		User_no=#{UserNo}
+	</delete>
+
+	<update id="update" parameterType="User">
+		update User
+		<set>
+			<if test="name != null and name != ''">name=#{name},</if>
+			<if test="password != null and password != ''">password=#{password},</if>
+			<if test="image != null and image != ''">image=#{image},</if>
+		</set>
+		where
+		User_no = #{UserNo}
+	</update>
+	
+	  <select id="findByKeyword" resultMap="UserMap" parameterType="map">
+    select * 
+    from User
+    <where>
+      <if test="name != null">name like concat('%', #{name}, '%')</if>
+      <if test="id != null">and id like concat('%', #{id}, '%')</if>
+    </where>
+  </select>
+	
+	<select id="listPage" resultMap="UserMap">
+		select *
+		from User
+		where User_no >= 0
+		<include refid="searchCondition"></include>
+		order by User_no desc limit #{pageStart}, #{perPageNum}
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+		from User
+		where User_no >= 0
+		<include refid="searchCondition"></include>
+	</select>
+	
+	  
+  
+  <sql id="searchCondition">
+		<if test="searchType != null">
+      <if test="name != null and nameType == 'n'.toString()">
+      and name like concat('%', #{name}, '%')</if>
+      <if test="registrationDate != null regType == 'r'.toString()">
+      and registrationDate >= #{registrationDate}</if>
+      <if test="processStatus != null proType == 'p'.toString()">
+      and process_status like concat('%', #{processStatus}, '%')</if>
+		</if>
+	</sql>
+
+</mapper>
