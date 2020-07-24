@@ -60,12 +60,6 @@ public class AppConfig implements WebMvcConfigurer {
 	  ExcelDownloadView ex = new ExcelDownloadView();
 	  return ex;
   }
-  
-//  <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-//  <beans:property name="prefix" value="/WEB-INF/views/" />
-//  <beans:property name="suffix" value=".jsp" />
-//  <beans:property name="order" value="1"></beans:property>
-//</beans:bean>
 }
 
 

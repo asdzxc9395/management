@@ -5,8 +5,7 @@
 
 <mapper namespace="management.dao.UserDao">
 	<resultMap type="User" id="UserMap">
-		<id column="User_no" property="UserNo" />
-		<result column="user_no" property="userNo" />
+		<id column="user_no" property="userNo" />
 		<result column="name" property="name" />
 		<result column="id" property="id" />
 		<result column="password" property="password" />
@@ -24,14 +23,14 @@
 		from 
 		User
 		where
-		User_no = #{UserNo} 
+		user_no = #{userNo} 
 	</select>
 	
 	<select id="findById" resultMap="UserMap" parameterType="string">
     select 
 	  *
     from 
-      lms_member
+      user
     where 
       id=#{id}
   </select>
@@ -41,7 +40,7 @@
     parameterType="map">
     select 
       *
-    from lms_member
+    from user
     where 
       id=#{id} 
       and password=password(#{password})
@@ -49,11 +48,11 @@
 
 	<insert id="insert" parameterType="User">
 		insert into User
-		(user_no, 
+		(
 		name, id, password, image)
-		values(#{userNo},
-		#{name}, #{id}, #{password}, #{image} )
-		    <selectKey keyProperty="UserNo" resultType="int">
+		values(
+		#{name}, #{id},password(#{password}), #{image} )
+		    <selectKey keyProperty="userNo" resultType="int">
         SELECT LAST_INSERT_ID()
     </selectKey>
 	</insert>

@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void add(User user) throws Exception {
-		userDao.insert(user);
+	public int add(User user) throws Exception {
+		return userDao.insert(user);
 	}
 
 	@Override
@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService{
 	    HashMap<String, Object> params = new HashMap<>();
 	    params.put("id", id);
 	    params.put("password", password);
+	    System.out.println(params);
 	    return userDao.findByIdAndPassword(params);
 	}
 

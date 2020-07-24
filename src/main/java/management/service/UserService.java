@@ -8,13 +8,13 @@ import management.domain.User;
 
 public interface UserService {
 
-	void add(User User) throws Exception;
+	int add(User User) throws Exception;
 	
 	List<User> list() throws Exception;
 	
 	int delete(int no) throws Exception;
 	
-	int update(User User) throws Exception;
+	int update(User user) throws Exception;
 	
 	User get(String id) throws Exception;
 	

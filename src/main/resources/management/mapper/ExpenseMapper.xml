@@ -107,7 +107,7 @@ select * from expense;
 	<select id="getTotalCount" resultType="int">
 		select count(*)
 		from expense
-		where expense_no >= 0
+		where expense_no >= 0 
 		<include refid="searchCondition"></include>
 	</select>
 	

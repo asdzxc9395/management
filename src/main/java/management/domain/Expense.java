@@ -8,6 +8,7 @@ public class Expense implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int expenseNo;
+	private int userNo;
 	private String name;
 	private Date useDate;
 	private String usePrice;
@@ -19,6 +20,12 @@ public class Expense implements Serializable{
 	private String receipt;
 	private String remark;
 	
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 	public Date getProcessDate() {
 		return processDate;
 	}
@@ -81,11 +88,12 @@ public class Expense implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Expense [expenseNo=" + expenseNo + ", name=" + name + ", useDate=" + useDate + ", usePrice=" + usePrice
-				+ ", approvePrice=" + approvePrice + ", processStatus=" + processStatus + ", registrationDate="
-				+ registrationDate + ", processDate=" + processDate + ", receipt=" + receipt + ", remark=" + remark
-				+ "]";
+		return "Expense [expenseNo=" + expenseNo + ", userNo=" + userNo + ", name=" + name + ", useDate=" + useDate
+				+ ", usePrice=" + usePrice + ", approvePrice=" + approvePrice + ", processStatus=" + processStatus
+				+ ", registrationDate=" + registrationDate + ", processDate=" + processDate + ", receipt=" + receipt
+				+ ", remark=" + remark + "]";
 	}
+	
 
 	
 
