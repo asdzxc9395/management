@@ -45,15 +45,11 @@ public class ExpenseController {
 
 	@GetMapping("list")
 	public String list(Criteria cri, Model model, HttpSession session) throws Exception{
-		User user = (User) session.getAttribute("loginUser");
-		System.out.println(user);
-		List<Expense> size = expenseService.list();
-		List<Expense> expense = expenseService.listPage(cri);
-		for(Expense e : expense) {
-		if ( e.getUserNo() != user.getUserNo() ) {
-			expense.remove(e);
-		}
-		}
+		int no = -1;
+		 if (session.getAttribute("loginUser") != null) {
+		      no = ((User) session.getAttribute("loginUser")).getUserNo();
+		    }
+		List<Expense> expense = expenseService.list(no);
 		model.addAttribute("list",expense);
 
 		int usePrice = 0;
@@ -76,7 +72,7 @@ public class ExpenseController {
 			approvePrice+=b;
 		}
 
-		model.addAttribute("size", size.size());
+		model.addAttribute("size", expense.size());
 		model.addAttribute("approvePrice", approvePrice);
 		model.addAttribute("usePrice", usePrice);
 
@@ -152,7 +148,7 @@ public class ExpenseController {
 			expense.setReceipt(filename);
 		}
 		if (expenseService.update(expense) > 0) {
-			return "redirect:../expense/detail?no=0";
+			return "redirect:../expense/list";
 		} else {
 			throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
 		}

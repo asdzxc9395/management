@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<form action='add' method='post' enctype='multipart/form-data'>
+<form action='add' method='post' enctype='multipart/form-data' target="listPage">
 <h2>경비 등록/ 수정</h2>
 <table border="8">
     <tr>
@@ -35,6 +35,6 @@
     <script>
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 </script> 
-<a href="list">닫기</a>
-<button>저장</button>
+<input type="submit" value="확인" onclick="window.close()" >
+<input type="button" value="닫기" onclick="window.close()">
 </form>

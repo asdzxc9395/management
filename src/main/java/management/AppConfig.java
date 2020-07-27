@@ -43,8 +43,6 @@ public class AppConfig implements WebMvcConfigurer {
   @Bean
   public InternalResourceViewResolver internalResourceViewResolver() {
 	  InternalResourceViewResolver rv = new InternalResourceViewResolver();
-//	  rv.setPrefix("/WEB-INF/");
-//	  rv.setSuffix(".jsp");
 	  rv.setOrder(1);
 	  return rv;
   }
