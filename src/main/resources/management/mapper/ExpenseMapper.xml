@@ -33,12 +33,14 @@ select * from expense;
 	</select>
 	<select id="findByUserNo" resultMap="ExpenseMap"
 		parameterType="int">
-	select 
-		* 
+	select * 
 		from 
-		expense
-		where
-		user_no = #{userNo}	
+			expense 
+		where 
+			user_no=#{userNo} 
+		order by 
+			expense_no 
+		desc limit 10;
 	</select>
 
 	<insert id="insert" parameterType="Expense">
@@ -86,7 +88,7 @@ select * from expense;
 		expense_no = #{expenseNo}
 	</update>
 	
-	  <select id="findByKeyword" resultMap="ExpenseMap" parameterType="map">
+<!-- 	  <select id="findByKeyword" resultMap="ExpenseMap" parameterType="map">
     select * 
     from expense
     <where>
@@ -103,16 +105,6 @@ select * from expense;
 		<include refid="searchCondition"></include>
 		order by expense_no desc limit #{pageStart}, #{perPageNum}
 	</select>
-
-	<select id="getTotalCount" resultType="int">
-		select count(*)
-		from expense
-		where expense_no >= 0 
-		<include refid="searchCondition"></include>
-	</select>
-	
-	  
-  
   <sql id="searchCondition">
 		<if test="searchType != null">
       <if test="name != null and nameType == 'n'.toString()">
@@ -123,5 +115,17 @@ select * from expense;
       and process_status like concat('%', #{processStatus}, '%')</if>
 		</if>
 	</sql>
+-->
+
+	<select id="getTotalCount" resultMap="ExpenseMap"
+		parameterType="int">
+		select *
+		from expense
+		where expense_no >= 0 and user_no =#{userNo};
+	</select>
+	
+	  
+  
+
 
 </mapper>

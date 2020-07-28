@@ -28,7 +28,7 @@ public interface ExpenseService {
 
 	List<Expense> listPage(Criteria cri) throws Exception;
 	
-	public int getTotalCount(Criteria cri) throws Exception;
+	public List<Expense> getTotalCount(int no) throws Exception;
 	
 	//리스트를 간단한 엑셀 워크북 객체로 생성
 	public SXSSFWorkbook makeSimpleFruitExcelWorkbook(List<Expense> list) throws Exception;

@@ -5,17 +5,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" >
 <title>경비 등록/수정</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+	
 
 </head>
 <body>
 
 <!-- 업데이트 -->
+<div class="container mb-5 mt-3">
 <form action='update' method='post' enctype='multipart/form-data' target="listPage">
 <input name="expenseNo" type="hidden" value="${expense.expenseNo}">
 <input name="userNo" type="hidden" value="${expense.userNo}">
 <h2>사용내역</h2>
-<table border="8">
+<table class="table table-bordered">
     <tr>
        <td>사용내역</td>
        <td><select name="name">
@@ -42,7 +53,7 @@
   </tr>
 </table>
 <h2>청구내역</h2>
-<table border="8">
+<table class="table table-bordered">
     <tr>
        <td>처리상태</td>
        <td><select name="processStatus">
@@ -75,7 +86,8 @@
 <img src='${pageContext.servletContext.contextPath}/upload/expense/${expense.receipt}' height='150'><br>
 <input type="submit" value="확인" onclick="window.close()" >
 <input type="button" value="닫기" onclick="window.close()">
-<a href="delete?no=${expense.expenseNo}">삭제</a>
+<input type="button" value="삭제" onclick="location.href='../expense/delete?no='+'${expense.expenseNo}'; window.close();">
 </form>
+
 </body>
 </html>

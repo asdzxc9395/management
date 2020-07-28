@@ -1,67 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" >
+	<link rel="stylesheet" href='../../css/style.css'/>
 <title>Expense</title>
-<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Montserrat:400,800'/>
-<link rel="stylesheet" href='../../css/style.css'/>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 </head>
+
 <body>
-<div class="header">
-<div class="inner_header">
-<div class="logo_container">
-<h1>MY<span>SITE</span></h1>
-</div>
- <form action='search' method='get'>
-<ul class="navigation">
-<a><li>등록년월:
-<input name='registrationDate' type='date' id="registrationDate">
-</li></a>
-<a><li>사용내역:
-<select id="name" name="name">
-		  		<option value="" selected> 선택</option>
-    			<option value="식대(야근)">식대(야근)</option>
-			    <option value="택시비(야근)">택시비(야근)</option>
-			    <option value="택시비(회식)">택시비(회식)</option>
-			    <option value="사무용품구매">사무용품구매</option>
-    			<option value="교육비">교육비</option>
-   			    <option value="접대비">접대비</option>
-			</select>
-</li></a>
-<a><li>처리상태:
-<select id="processStatus" name="processStatus">
-		  		<option value="" selected> 선택</option>
-			    <option value="접수">접수</option>
-			    <option value="승인">승인</option>
-			    <option value="지급완료">지급완료</option>
-    			<option value="반려">반려</option>
-			</select>
-</li></a>
-<a><li><button>검색</button></li></a>
-<a href="../expense/list"><li>초기화</button></li></a>
-<a href="../auth/logout"><li>로그아웃</button></li></a>
-<a><li>
-<c:if test="${not empty loginUser.image  && loginUser.image ne 'undefined'}">
-              <span class="header__user__photo">
-              <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor: pointer;">
-              <img class="img-thumbnail" style="border:0;" id="headerUserName"
-                src='${pageContext.servletContext.contextPath}/upload/user/${loginUser.image}'></div>
-                </span>
-          </c:if>
-          <c:if test="${empty loginUser.image || loginUser.image eq 'undefined'}">
-            <i class="far fa-user" style="font-size: 1.5em; margin-right: 0.3em;"></i>
-          </c:if>
-</li></a>
-</ul>
-</form>
-</div>
+	<div class="header">
+		<div class="inner_header">
+			<div class="logo_container">
+				<h1>MY<span>SITE</span></h1>
+			</div>
+ 			<form action='search' method='get'>
+				<ul class="navigation">
+					<a><li>등록년월:
+						<input name='registrationDate' type='date' id="registrationDate">
+					</li></a>
+					<a><li>사용내역:
+						<select id="name" name="name">
+		  					<option value="" selected> 선택</option>
+    						<option value="식대(야근)">식대(야근)</option>
+						    <option value="택시비(야근)">택시비(야근)</option>
+						    <option value="택시비(회식)">택시비(회식)</option>
+						    <option value="사무용품구매">사무용품구매</option>
+    						<option value="교육비">교육비</option>
+   						    <option value="접대비">접대비</option>
+						</select>
+					</li></a>
+					<a><li>처리상태:
+						<select id="processStatus" name="processStatus">
+					  		<option value="" selected> 선택</option>
+						    <option value="접수">접수</option>
+						    <option value="승인">승인</option>
+						    <option value="지급완료">지급완료</option>
+    						<option value="반려">반려</option>
+						</select>
+					</li></a>
+					<a><li><button>검색</button></li></a>
+						<a href="../expense/list"><li>초기화</button></li></a>
+						<a href="../auth/logout"><li>로그아웃</button></li></a>
+					<a><li>
+					<c:if test="${not empty loginUser.image  && loginUser.image ne 'undefined'}">
+      	   			     <span class="header__user__photo">
+      				        <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor: pointer;">
+   					           <img class="img-thumbnail" style="border:0;" id="headerUserName"
+  					              src='${pageContext.servletContext.contextPath}/upload/user/${loginUser.image}'></div>
+   			             </span>
+    		        </c:if>
+        		    <c:if test="${empty loginUser.image || loginUser.image eq 'undefined'}">
+          			  <i class="far fa-user" style="font-size: 1.5em; margin-right: 0.3em;"></i>
+    		        </c:if>
+					</li></a>
+				</ul>
+		</form>
+	</div>
 </div>
 <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="userDetailModalTitle"
   aria-hidden="true">
@@ -75,7 +79,7 @@
       </div>
       <div class="modal-body">
         <div id="modal-user-profile-div">
-          <img id="modal-user-img" src='' style="border-radius: 100%; object-fit: cover;">
+          <img id="modal-user-img" src='' style="border-radius: 50%; object-fit: cover;">
         </div>
         <form class="d-flex flex-column" id="modal-user-update" action='../user/update' method='post'
           enctype='multipart/form-data'>
@@ -92,7 +96,7 @@
               placeholder="변경하고자하는 비밀번호를 입력하세요.">
           </div>
           <div class="form-group">
-            <label for='user-photo-input'>프로필 사진 업로드</label> <input name='photo' type='file'
+            <label for='user-photo-input'>프로필 사진 업로드</label> <input name='photoFile' type='file'
               class="btn btn-light btn-sm">
           </div>
           <div class="d-flex">

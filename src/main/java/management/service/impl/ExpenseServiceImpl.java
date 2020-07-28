@@ -59,8 +59,8 @@ public class ExpenseServiceImpl implements ExpenseService{
 	}
 
 	@Override
-	public int getTotalCount(Criteria cri) throws Exception {
-		return expenseDao.getTotalCount(cri);
+	public List<Expense> getTotalCount(int no) throws Exception {
+		return expenseDao.getTotalCount(no);
 	}
 	
 	@Override

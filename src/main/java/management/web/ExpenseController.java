@@ -50,39 +50,6 @@ public class ExpenseController {
 		      no = ((User) session.getAttribute("loginUser")).getUserNo();
 		    }
 		List<Expense> expense = expenseService.list(no);
-		model.addAttribute("list",expense);
-
-		int usePrice = 0;
-		int approvePrice = 0;
-		int b = 0;
-		for(int i = 0; i < expense.size(); i++) {
-			if(expense.get(i).getUsePrice() == null) {
-				b = 0;	
-			} else {
-				b = Integer.parseInt(expense.get(i).getUsePrice());
-			}
-			usePrice+=b;
-		}
-		for(int i = 0; i < expense.size(); i++) {
-			if(expense.get(i).getApprovePrice() == null) {
-				b = 0;	
-			} else {
-				b = Integer.parseInt(expense.get(i).getApprovePrice());
-			}
-			approvePrice+=b;
-		}
-
-		model.addAttribute("size", expense.size());
-		model.addAttribute("approvePrice", approvePrice);
-		model.addAttribute("usePrice", usePrice);
-
-		return "/WEB-INF/jsp/expense/list.jsp";
-	}
-
-	@GetMapping("detail")
-	public String detail(Criteria cri,int no, Model model) throws Exception {
-		List<Expense> size = expenseService.list();
-		List<Expense> expense = expenseService.listPage(cri);
 		
 		model.addAttribute("list",expense);
 
@@ -105,11 +72,16 @@ public class ExpenseController {
 			}
 			approvePrice+=b;
 		}
-
-		model.addAttribute("size", size.size());
+		
+		model.addAttribute("size", expenseService.getTotalCount(no).size());
 		model.addAttribute("approvePrice", approvePrice);
 		model.addAttribute("usePrice", usePrice);
-		model.addAttribute("list",expense);
+
+		return "/WEB-INF/jsp/expense/list.jsp";
+	}
+
+	@GetMapping("detail")
+	public String detail(Criteria cri,int no, Model model) throws Exception {
 		model.addAttribute("expense", expenseService.get(no));
 		return "/WEB-INF/jsp/expense/detail.jsp";
 	}
@@ -190,8 +162,12 @@ public class ExpenseController {
 	}
 
 	@RequestMapping(value = "/downloadExcelFile", method =  RequestMethod.POST)
-	public String downloadExcelFile(Expense expense, Model model, Criteria cri) throws Exception {
-		List<Expense> list = expenseService.listPage(cri);
+	public String downloadExcelFile(HttpSession session, Expense expense, Model model, Criteria cri) throws Exception {
+		int no = -1;
+		 if (session.getAttribute("loginUser") != null) {
+		      no = ((User) session.getAttribute("loginUser")).getUserNo();
+		    }
+		List<Expense> list = expenseService.getTotalCount(no);
 		SXSSFWorkbook workbook = expenseService.excelFileDownloadProcess(list);
 		model.addAttribute("locale", Locale.KOREA);
 		model.addAttribute("workbook", workbook);

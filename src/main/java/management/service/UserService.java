@@ -26,6 +26,6 @@ public interface UserService {
 
 	List<User> listPage(Criteria cri) throws Exception;
 	
-	public int getTotalCount(Criteria cri) throws Exception;
+	public int getTotalCount(int no) throws Exception;
 	
 }

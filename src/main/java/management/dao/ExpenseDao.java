@@ -25,6 +25,6 @@ public interface ExpenseDao {
 //
 	List<Expense> listPage(Criteria cri) throws Exception;
 	
-	public int getTotalCount(Criteria cri) throws Exception;
+	public List<Expense> getTotalCount(int no) throws Exception;
 	
 }

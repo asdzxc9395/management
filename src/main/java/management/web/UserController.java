@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -52,42 +53,47 @@ public class UserController {
 			throw new Exception("회원을 추가할 수 없습니다.");
 		}
 	}
-	
+
 	@GetMapping("delete")
-	public String delete(int no) throws Exception {
-	    if (userService.delete(no) > 0) { // 삭제했다면,
-	        return "redirect:list";
-	      } else {
-	        throw new Exception("삭제할 회원 번호가 유효하지 않습니다.");
-	      } 
+	public String delete(HttpSession session, int no) throws Exception {
+		if (userService.delete(no) > 0) { // 삭제했다면,
+			session.removeAttribute("loginUser");
+			return "redirect:../auth/form";
+		} else {
+			throw new Exception("삭제할 회원 번호가 유효하지 않습니다.");
+		} 
 	}
 	@RequestMapping("detail")
 	@ResponseBody
-	  public ResponseEntity<String> detail(int userNo, Model model) throws Exception {
+	public ResponseEntity<String> detail(int userNo, Model model) throws Exception {
 		User user = userService.get(userNo);
 		Gson gson = new Gson();
-	    HttpHeaders header = new HttpHeaders();
-	    header.add("Content-Type", "application/json;charset=utf-8");
-	    return new ResponseEntity<>(gson.toJson(user), header, HttpStatus.OK);
-	  }
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", "application/json;charset=utf-8");
+		return new ResponseEntity<>(gson.toJson(user), header, HttpStatus.OK);
+	}
 
-	  @GetMapping("list")
-	  public void list(Model model) throws Exception {
-	    model.addAttribute("list", userService.list());
-	  }
-	  @PostMapping("update") 
-	  public String update(User user, MultipartFile photoFile) throws Exception {
-		  if(photoFile.getSize() > 0) {
-			  String dirPath = servletContext.getRealPath("/upload/member");
-			  String filename = UUID.randomUUID().toString();
-			  photoFile.transferTo(new File(dirPath + "/" + filename));
-			  user.setImage(filename);
-		  }
-		  if(userService.update(user) > 0) {
-			  return "redirect:../auth/form";
-		  } else {
-			  throw new Exception("변경할 회원 번호가 유효하지 않습니다.");
-		  }
-	  }
-	
+	@GetMapping("list")
+	public void list(Model model) throws Exception {
+		model.addAttribute("list", userService.list());
+	}
+	@PostMapping("update") 
+	public String update(HttpSession session, User user, MultipartFile photoFile) throws Exception {
+		System.out.println(user);
+		System.out.println(photoFile);
+		if(photoFile.getSize() > 0) {
+			String dirPath = servletContext.getRealPath("/upload/member");
+			String filename = UUID.randomUUID().toString();
+			photoFile.transferTo(new File(dirPath + "/" + filename));
+			user.setImage(filename);
+		}
+		if(userService.update(user) > 0) {
+			session.removeAttribute("loginUser");
+			session.setAttribute("loginUser", userService.get(user.getUserNo()));
+			return "redirect:../expense/list";
+		} else {
+			throw new Exception("변경할 회원 번호가 유효하지 않습니다.");
+		}
+	}
+
 }
