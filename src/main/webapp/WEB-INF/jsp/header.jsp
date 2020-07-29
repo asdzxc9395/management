@@ -20,13 +20,16 @@
 <body>
 	<div class="header">
 		<div class="inner_header">
-			<div class="logo_container">
+			<div class="logo_container" onclick="location.href='../expense/list'">
 				<h1>MY<span>SITE</span></h1>
 			</div>
  			<form action='search' method='get'>
 				<ul class="navigation">
 					<a><li>등록년월:
-						<input name='registrationDate' type='date' id="registrationDate">
+						<input name='registrationDate' type='date' id="currentDate">
+						     <script>
+    						document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+    						</script>  
 					</li></a>
 					<a><li>사용내역:
 						<select id="name" name="name">

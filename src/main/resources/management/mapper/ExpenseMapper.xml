@@ -87,8 +87,7 @@ select * from expense;
 		where
 		expense_no = #{expenseNo}
 	</update>
-	
-<!-- 	  <select id="findByKeyword" resultMap="ExpenseMap" parameterType="map">
+	<select id="findByKeyword" resultMap="ExpenseMap" parameterType="map">
     select * 
     from expense
     <where>
@@ -97,6 +96,8 @@ select * from expense;
       <if test="registrationDate != null">and registration_date &lt;= #{registrationDate}</if>
     </where>
   </select>
+	
+<!-- 	  
 	
 	<select id="listPage" resultMap="ExpenseMap">
 		select *

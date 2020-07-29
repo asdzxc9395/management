@@ -3,6 +3,8 @@ package management.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Expense implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -15,7 +17,6 @@ public class Expense implements Serializable{
 	private String approvePrice;
 	private String processStatus;
 	private Date registrationDate;
-	
 	private Date processDate;
 	private String receipt;
 	private String remark;

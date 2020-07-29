@@ -1,7 +1,7 @@
 package management.web;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import management.domain.Criteria;
@@ -98,12 +99,14 @@ public class ExpenseController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(Expense expense, MultipartFile imageFile, HttpSession session) throws Exception {
 		User user = (User) session.getAttribute("loginUser");
+		
 		if (imageFile.getSize() > 0) {
 			String dirPath = servletContext.getRealPath("/upload/expense");
 			String filename = UUID.randomUUID().toString();
 			imageFile.transferTo(new File(dirPath + "/" + filename));
 			expense.setReceipt(filename);
 		}
+		
 		expense.setUserNo(user.getUserNo());
 		expenseService.add(expense);
 		return "redirect:../expense/list";
@@ -130,7 +133,8 @@ public class ExpenseController {
 	public String search(Expense expense, Model model, Criteria cri
 			, HttpServletRequest req) throws Exception {
 		HashMap<String, Object> map = new HashMap<>();
-
+		System.out.println(123123);
+		System.out.println(expense.getRegistrationDate());
 		if (expense.getName().length() > 0) {
 			map.put("name", expense.getName());
 		}
@@ -146,7 +150,6 @@ public class ExpenseController {
 		List<Expense> list = expenseService.search(map);
 		for(int i = 0; i < list.size(); i++) {
 			if(list.size() > 5) {
-				System.out.println(list.get(i));
 				list.remove(i);
 			}
 		}

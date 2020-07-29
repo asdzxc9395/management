@@ -19,6 +19,7 @@
 
 </head>
 <body>
+
 <div class="container mb-5 mt-3">
 <form action='add' method='post' enctype='multipart/form-data' target="listPage">
 <h2>경비 등록/ 수정</h2>
@@ -47,15 +48,11 @@
        	<td>영수증</td>
     	<td><input name="imageFile" type="file"></td>
   </tr>
-
 </table>
-  <input name="registrationDate" type="date" style="display: none" id="currentDate">
-    <script>
-    document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
-</script> 
 <input type="submit" value="확인" onclick="window.close()" >
 <input type="button" value="닫기" onclick="window.close()">
 </form>
 </div>
+
 </body>
 </html>
