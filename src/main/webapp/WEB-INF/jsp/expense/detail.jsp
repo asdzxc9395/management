@@ -57,7 +57,7 @@
     <tr>
        <td>처리상태</td>
        <td><select name="processStatus">
-		  		<option value="" selected> 선택</option>
+		  		<option value="" selected>대기</option>
 			    <option value="접수">접수</option>
 			    <option value="승인">승인</option>
 			    <option value="지급완료">지급완료</option>
@@ -66,7 +66,7 @@
    </tr>
     <tr>
        <td>처리일시</td>
-       <td><input name="processDate" type="date" value="${expense.processDate}" id="currentDate">
+       <td><input name="processDate" type="date" value="${expense.processDate}" id="currentDate" readonly="readonly">
        <script>
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 </script> 
@@ -74,10 +74,10 @@
    </tr>
     <tr>
        <td>금액</td>
-       <td><input name="approvePrice" type="text" value="${expense.approvePrice}"></td>
+       <td><input name="approvePrice" type="text" value="${expense.approvePrice}" readonly="readonly"></td>
    </tr>
     <tr>
-       	<td>영수증</td>
+       	<td>비고</td>
     	<td><input name="remark" type="text" value="${expense.remark}"></td>
   </tr>
 </table>

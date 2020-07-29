@@ -1,25 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-
-<!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href='../../css/style.css'/>
+<title>회원가입</title>
 </head>
 <body>
-<h1>회원 입력(JSP)</h1>
-<form action='add' method='post' enctype='multipart/form-data'>
-아이디: <input name='id' type='email'><br>
-암호: <input name='password' type='password'><br>
-이름: <input name='name' type='text'><br>
-사진: <input name='photoFile' type='file'><br>
-<button>제출</button>
+<section class="container-fluid bg">
+	<section class="row justify-content-center">
+		<section class="col-12 col-sm-6 col-md-3">
+			<form class="form-container" action='add' method='post' method='post' enctype='multipart/form-data'>
+  				<div class="form-group">
+ 				   <label for="exampleInputEmail1">Email</label>
+ 				   <input type="email" class="form-control" id="exampleInputEmail1" name='id' aria-describedby="emailHelp">
+ 				 </div>
+ 				 <div class="form-group">
+ 				   <label for="exampleInputPassword1">Password</label>
+ 				   <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+				  </div>
+ 				 <div class="form-group">
+ 				   <label for="exampleInputPassword1">Name</label>
+ 				   <input type="text" class="form-control" name="name" id="exampleInputPassword1">
+				  </div>
+ 				 <div class="form-group">
+ 				   <label for="exampleInputPassword1">image</label>
+ 				   <input type="file" class="form-control" name="photoFile" id="exampleInputPassword1">
+				  </div>
+  				<button type="submit" class="btn btn-primary btn-block">로그인</button>
+  				<button type="button" class="btn btn-primary btn-block" onclick="location.href='../auth/login' ">돌아가기</button>
+</form>
+		</section>
+	</section>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 </form>
 </body>
 </html>
-<!--         <script>
+        <script>
     //const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
@@ -101,5 +123,5 @@
           $("#completeBtn").trigger("click");
         }
     });
-    </script> -->
+    </script> 
     
