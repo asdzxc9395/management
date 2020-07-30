@@ -29,7 +29,8 @@ CREATE TABLE user (
 		name VARCHAR(50) NOT NULL,
 		image VARCHAR(255) NULL,
 		id VARCHAR(50) NOT NULL,
-		password VARCHAR(70) NOT NULL
+		password VARCHAR(150) NOT NULL,
+		alterkey VARCHAR(100) NULL
 );
 
 -- 사용자

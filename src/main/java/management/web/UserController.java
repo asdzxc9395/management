@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +17,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
 import management.domain.User;
+import management.service.MailSendService;
 import management.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+	@Autowired
+	private MailSendService mailsender;
 
 	@Autowired
 	UserService userService;
@@ -38,8 +45,25 @@ public class UserController {
 		return "/WEB-INF/jsp/user/form.jsp";
 	}
 
+	@RequestMapping("signup")
+	public void signup(User user, Model model, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if(userService.get(user.getId()) != null) {
+			response.setStatus(400);
+		}
+		if(userService.join(user) > 0) {
+			mailsender.mailSendWithKey(user.getId(), user.getName(), user.getPassword(), request);
+			response.setStatus(200);
+		} else {
+			throw new Exception("회원을 추가할 수 없습니다.");
+		}
+	}
+
 	@PostMapping("add")
-	public String add(User user, MultipartFile photoFile) throws Exception {
+	public String add(User user, 
+			@RequestPart(value = "photoFile", required = false)	MultipartFile photoFile) throws Exception {
+		  System.out.println(photoFile);
+		  System.out.println(user);
 		if(photoFile.getSize() > 0) {
 			String dirPath = servletContext.getRealPath("/upload/user");
 			String filename = UUID.randomUUID().toString();
@@ -48,7 +72,7 @@ public class UserController {
 		}
 
 		if (userService.add(user) > 0) {
-			return "redirect:../auth/form";
+		      return "redirect:../auth/login?email=" + user.getId() + "&password=" + user.getPassword();
 		} else {
 			throw new Exception("회원을 추가할 수 없습니다.");
 		}
@@ -82,7 +106,7 @@ public class UserController {
 		System.out.println(user);
 		System.out.println(photoFile);
 		if(photoFile.getSize() > 0) {
-			String dirPath = servletContext.getRealPath("/upload/member");
+			String dirPath = servletContext.getRealPath("/upload/user");
 			String filename = UUID.randomUUID().toString();
 			photoFile.transferTo(new File(dirPath + "/" + filename));
 			user.setImage(filename);

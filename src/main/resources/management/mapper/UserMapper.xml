@@ -10,51 +10,58 @@
 		<result column="id" property="id" />
 		<result column="password" property="password" />
 		<result column="image" property="image" />
+		<result column="alterkey" property="alterKey"/>
 	</resultMap>
 
 	<select id="findAll" resultMap="UserMap">
-	select * from User;
+		select * from User;
 	</select>
 
-	<select id="findByNo" resultMap="UserMap"
-		parameterType="int">
-		select 
-		* 
-		from 
+	<select id="findByNo" resultMap="UserMap" parameterType="int">
+		select
+		*
+		from
 		User
 		where
-		user_no = #{userNo} 
+		user_no = #{userNo}
 	</select>
-	
+
 	<select id="findById" resultMap="UserMap" parameterType="string">
-    select 
-	  *
-    from 
-      user
-    where 
-      id=#{id}
-  </select>
-  
-   <select id="findByIdAndPassword" 
-    resultMap="UserMap" 
-    parameterType="map">
-    select 
-      *
-    from user
-    where 
-      id=#{id} 
-      and password=password(#{password})
-  </select>
+		select
+		*
+		from
+		user
+		where
+		id=#{id}
+	</select>
+
+	<select id="findByIdAndPassword" resultMap="UserMap"
+		parameterType="map">
+		select
+		*
+		from user
+		where
+		id=#{id}
+		and password=password(#{password})
+	</select>
 
 	<insert id="insert" parameterType="User">
 		insert into User
 		(
-		name, id, password, image)
+		name, id, password, image, alterkey)
 		values(
-		#{name}, #{id},password(#{password}), #{image} )
-		    <selectKey keyProperty="userNo" resultType="int">
-        SELECT LAST_INSERT_ID()
-    </selectKey>
+		#{name},
+		#{id},password(#{password}), #{image}, "Y" )
+		<selectKey keyProperty="userNo" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- 회원 가입 -->
+	<insert id="join" parameterType="User">
+		insert into user
+		(id, name, password)
+		values(#{id}, #{name}, password(#{password}))
 	</insert>
 
 	<delete id="delete" parameterType="int">
@@ -68,22 +75,24 @@
 		update User
 		<set>
 			<if test="name != null and name != ''">name=#{name},</if>
-			<if test="password != null and password != ''">password=#{password},</if>
+			<if test="password != null and password != ''">password=password(#{password}),</if>
 			<if test="image != null and image != ''">image=#{image},</if>
+			<if test="alterKey != null and alterKey != ''">alterkey=#{alterKey}</if>
 		</set>
 		where
 		user_no = #{userNo}
 	</update>
-	
-	  <select id="findByKeyword" resultMap="UserMap" parameterType="map">
-    select * 
-    from User
-    <where>
-      <if test="name != null">name like concat('%', #{name}, '%')</if>
-      <if test="id != null">and id like concat('%', #{id}, '%')</if>
-    </where>
-  </select>
-	
+
+	<select id="findByKeyword" resultMap="UserMap"
+		parameterType="map">
+		select *
+		from User
+		<where>
+			<if test="name != null">name like concat('%', #{name}, '%')</if>
+			<if test="id != null">and id like concat('%', #{id}, '%')</if>
+		</where>
+	</select>
+
 	<select id="listPage" resultMap="UserMap">
 		select *
 		from User
@@ -98,18 +107,29 @@
 		where user_no >= 0
 		<include refid="searchCondition"></include>
 	</select>
-	
-	  
-  
-  <sql id="searchCondition">
+
+	<sql id="searchCondition">
 		<if test="searchType != null">
-      <if test="name != null and nameType == 'n'.toString()">
-      and name like concat('%', #{name}, '%')</if>
-      <if test="registrationDate != null regType == 'r'.toString()">
-      and registrationDate >= #{registrationDate}</if>
-      <if test="processStatus != null proType == 'p'.toString()">
-      and process_status like concat('%', #{processStatus}, '%')</if>
+			<if test="name != null and nameType == 'n'.toString()">
+				and name like concat('%', #{name}, '%')</if>
+			<if test="registrationDate != null regType == 'r'.toString()">
+				and registrationDate >= #{registrationDate}
+			</if>
+			<if test="processStatus != null proType == 'p'.toString()">
+				and process_status like concat('%', #{processStatus}, '%')</if>
 		</if>
 	</sql>
+
+	<update id="alterKey" parameterType="map">
+		update user set alterkey = #{key} where id = #{id}
+	</update>
+
+	<update id="alterUserKey" parameterType="Map">
+		update user set alterkey = 'Y' where id = #{key} and alterkey = #{key}
+	</update>
+	<update id="updatePassword" parameterType="Map">
+		update user set password=password(#{newPassword}) where id = #{id}
+	</update>
+
 
 </mapper>

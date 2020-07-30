@@ -78,7 +78,7 @@
    </tr>
     <tr>
        	<td>비고</td>
-    	<td><input name="remark" type="text" value="${expense.remark}"></td>
+    	<td><input name="remark" type="text" value="${expense.remark}" readonly="readonly"></td>
   </tr>
 </table>
 

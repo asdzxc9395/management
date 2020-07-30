@@ -11,11 +11,12 @@ public class User implements Serializable{
 	private String password;
 	private String name;
 	private String image;
+	private String alterKey;
 	
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", id=" + id + ", password=" + password + ", name=" + name + ", image="
-				+ image + "]";
+				+ image + ", alterKey=" + alterKey + "]";
 	}
 	public int getUserNo() {
 		return userNo;
@@ -46,6 +47,12 @@ public class User implements Serializable{
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getAlterKey() {
+		return alterKey;
+	}
+	public void setAlterKey(String alterKey) {
+		this.alterKey = alterKey;
 	}
 	
 	

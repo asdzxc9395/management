@@ -72,5 +72,9 @@ public class UserServiceImpl implements UserService{
 	public int getTotalCount(Criteria cri) throws Exception {
 		return userDao.getTotalCount(cri);
 	}
-
+	
+	@Override
+	public int join(User user) throws Exception {
+		return userDao.join(user);
+	}
 }

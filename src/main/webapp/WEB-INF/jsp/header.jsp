@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+ 	 <script src="https://kit.fontawesome.com/764f0503e3.js" crossorigin="anonymous"></script>
   
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
@@ -55,16 +56,18 @@
 						<a href="../expense/list"><li>초기화</button></li></a>
 						<a href="../auth/logout"><li>로그아웃</button></li></a>
 					<a><li>
+					
+					<div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor: pointer;">
 					<c:if test="${not empty loginUser.image  && loginUser.image ne 'undefined'}">
       	   			     <span class="header__user__photo">
-      				        <div id="headerUserName" data-toggle="modal" data-target="#userDetailModal" style="cursor: pointer;">
    					           <img class="img-thumbnail" style="border:0;" id="headerUserName"
-  					              src='${pageContext.servletContext.contextPath}/upload/user/${loginUser.image}'></div>
+  					              src='${pageContext.servletContext.contextPath}/upload/user/${loginUser.image}'>
    			             </span>
     		        </c:if>
         		    <c:if test="${empty loginUser.image || loginUser.image eq 'undefined'}">
           			  <i class="far fa-user" style="font-size: 1.5em; margin-right: 0.3em;"></i>
     		        </c:if>
+    		        </div>
 					</li></a>
 				</ul>
 		</form>
@@ -128,11 +131,9 @@ $('#headerUserName').click(function () {
             console.log(userJson);
             if(userJson.image != undefined && userJson.image != 'undefined') {
           document.getElementById('modal-user-img').setAttribute('src', '${pageContext.servletContext.contextPath}/upload/user/'+userJson.image);
-            } else if(userJson.image != undefined && userJson.image != 'undefined' && userJson.loginMethod > 0) {
+            } else if(userJson.image != undefined && userJson.image != 'undefined') {
                 document.getElementById('modal-user-img').setAttribute('src', userJson.image);
-            } else {
-                $('#modal-user-profile-div').html('<i class="far fa-user"></i>');
-            }
+            } 
         let userUpdateForm = document.getElementById('modal-user-update');
         userUpdateForm.userNo.value = userJson.userNo;
         userUpdateForm.id.value = userJson.id;
