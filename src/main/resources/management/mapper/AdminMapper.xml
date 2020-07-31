@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="management.dao.AdminDao">
+	<resultMap type="Admin" id="AdminMap">
+		<id column="admin_no" property="adminNo" />
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+	</resultMap>
+
+	<select id="findByIdAndPassword" resultMap="AdminMap"
+		parameterType="map">
+		select
+		*
+		from admin
+		where
+		id=#{id}
+		and password=password(#{password})
+	</select>
+
+	<insert id="insert" parameterType="Admin">
+		insert into admin
+		(
+		id, password)
+		values(
+		#{id},password(#{password}))
+		<selectKey keyProperty="adminNo" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="Admin">
+		update admin
+		<set>
+			<if test="password != null and password != ''">password=password(#{password}),</if>
+		</set>
+		where
+		admin_no = #{adminNo}
+	</update>
+	<update id="reset" parameterType="Admin">
+		update admin
+		<set>
+			<if test="password != null and password != ''">password=password(#{1111}),</if>
+		</set>
+		where
+		admin_no = #{adminNo}
+	</update>
+
+</mapper>

@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService{
 	    HashMap<String, Object> params = new HashMap<>();
 	    params.put("id", id);
 	    params.put("password", password);
-	    System.out.println(params);
 	    return userDao.findByIdAndPassword(params);
 	}
 
