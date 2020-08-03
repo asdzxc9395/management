@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import management.aop.UserAspect;
+
 // Spring IoC 컨테이너가 탐색할 패키지 설정
 // => 지정한 패키지 및 그 하위 패키지를 모두 뒤져서
 // @Component 애노테이션이 붙은 클래스를 찾아 객체를 생성한다.
@@ -56,6 +58,12 @@ public class AppWebConfig implements WebMvcConfigurer {
 	  ExcelDownloadView ex = new ExcelDownloadView();
 	  return ex;
   }
+  @Bean
+  public UserAspect userAspect() {
+	  UserAspect ur = new UserAspect();
+	  return ur;
+  }
+  
   
 }
 

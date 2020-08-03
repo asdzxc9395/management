@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 
+import management.aop.UserAspect;
+
 // AdminWebApplicationInitializer가 설정하는
 // DispatcherServlet(/admin/* 요청 처리)의 IoC 컨테이너를 위한 설정이다.
 //
@@ -54,6 +56,12 @@ public class AdminWebConfig {
     mr.setMaxUploadSizePerFile(5000000);
     return mr;
   }
+  @Bean
+  public UserAspect userAspect() {
+	  UserAspect ur = new UserAspect();
+	  return ur;
+  }
+  
 }
 
 

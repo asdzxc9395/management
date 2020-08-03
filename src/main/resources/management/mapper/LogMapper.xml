@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="management.dao.LogDao">
+	<resultMap type="Log" id="LogMap">
+		<id column="log_no" property="logNo" />
+		<result column="user_no" property="userNo" />
+		<result column="log_in" property="logIn" />
+		<result column="log_out" property="logOut"/>
+	</resultMap>
+
+	<select id="findAll" resultMap="LogMap">
+		select * from log;
+	</select>
+
+	<select id="findByNo" resultMap="LogMap" parameterType="int">
+		select
+		*
+		from
+		log
+		where
+		user_no = #{userNo}
+	</select>
+
+	<insert id="insert" parameterType="Log">
+		insert into log
+		(user_no,
+		log_in, log_out)
+		values(
+		#{userNo},
+		#{logIn}, #{logOut})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from
+		log
+		where
+		user_no=#{userNo}
+	</delete>
+
+	<select id="listPage" resultMap="LogMap">
+		select *
+		from log
+		where User_no >= 0
+		order by user_no desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+		from log
+		where user_no >= 0
+	</select>
+
+</mapper>

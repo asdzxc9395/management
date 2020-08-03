@@ -48,6 +48,7 @@ public class UserController {
 	@RequestMapping("signup")
 	public void signup(User user, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		System.out.println(userService.get(user.getId()));
 		if(userService.get(user.getId()) != null) {
 			response.setStatus(400);
 		}

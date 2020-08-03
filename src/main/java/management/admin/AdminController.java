@@ -1,13 +1,14 @@
 package management.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import management.domain.Admin;
-import management.domain.Expense;
+import management.domain.Log;
 import management.domain.User;
 import management.service.AdminService;
 import management.service.ExpenseService;
+import management.service.LogService;
 import management.service.UserService;
 
 @Controller
@@ -36,6 +38,9 @@ public class AdminController {
 
 	@Autowired
 	ExpenseService expenseService;
+	
+	@Autowired 
+	LogService logService;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -59,11 +64,9 @@ public class AdminController {
 	
 	@GetMapping("list")
 	public String list(Admin admin, Model model) throws Exception {
-		List<User> uList = userService.list();
-		List<Expense> eList = expenseService.list();
-		logger.info("info" + 1111);
-		logger.debug("debug" + 1111);
-		
+		List<User> uList  = userService.list();
+		model.addAttribute("uList", uList);
+		System.out.println(uList);
 		return "/WEB-INF/admin/list.jsp";
 	}
 	

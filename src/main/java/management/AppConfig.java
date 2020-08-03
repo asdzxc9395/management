@@ -2,6 +2,8 @@ package management;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.FilterType;
@@ -31,7 +33,6 @@ public class AppConfig implements WebMvcConfigurer {
     logger.debug("AppConfig 객체 생성!");
   }
 
-  
 }
 
 

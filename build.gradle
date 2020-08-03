@@ -113,4 +113,11 @@ dependencies {
   implementation 'org.apache.poi:poi:4.1.2'
   
   implementation 'org.apache.poi:poi-ooxml:4.1.2'
+  
+  // AOP 구현 라이브러리
+  implementation 'org.springframework:spring-aop:5.2.8.RELEASE'
+  
+  implementation 'org.aspectj:aspectjrt:1.9.6'
+  
+  implementation 'org.aspectj:aspectjweaver:1.9.6' 
 }
