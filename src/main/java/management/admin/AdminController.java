@@ -61,11 +61,8 @@ public class AdminController {
 	public String list(Admin admin, Model model) throws Exception {
 		List<User> uList = userService.list();
 		List<Expense> eList = expenseService.list();
-		logger.debug("degug");
 		logger.info("info" + 1111);
-		logger.warn("warn" + 1111);
-		logger.error("error");
-		logger.fatal("fatal");
+		logger.debug("debug" + 1111);
 		
 		return "/WEB-INF/admin/list.jsp";
 	}
