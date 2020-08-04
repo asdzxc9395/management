@@ -35,8 +35,8 @@
 		<th><img src="https://user-images.githubusercontent.com/58450731/89273482-90af8e80-d67a-11ea-8707-c4d8813da48b.gif" width="50%"></th>
 	</tr>
 	<tr>
-		<th>3</th>
-		<th>4</th>
+		<th>사용자기능</th>
+		<th>관리자기능</th>
 	</tr>
 <table>
 	
