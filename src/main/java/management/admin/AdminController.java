@@ -1,6 +1,7 @@
 package management.admin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,10 +48,10 @@ public class AdminController {
 	@Autowired
 	ServletContext servletContext;
 	
-	@GetMapping("form")
-	public String form() {
-		return "/WEB-INF/admin/form.jsp";
-	}
+//	@GetMapping("form")
+//	public String form() {
+//		return "/WEB-INF/admin/form.jsp";
+//	}
 	
 	@PostMapping("update")
 	public String update(Admin admin) throws Exception {
@@ -68,29 +69,40 @@ public class AdminController {
 	public String list(Admin admin, Model model) throws Exception {
 		List<User> uList  = userService.list();
 		model.addAttribute("uList", uList);
-		System.out.println(uList);
 		return "/WEB-INF/admin/list.jsp";
 	}
-	
-	@RequestMapping("login")
-	public String login(String id, String password,
-				HttpServletResponse response, HttpSession session, Model model
-				) throws Exception{
-		Admin admin = adminService.get(id, password);
-		if(admin != null) {
-			session.setAttribute("admin", admin);
-			return "redirect:../admin/list";
-		} else {
-			session.invalidate();
-			return "redirect: ../admin/form";
+	@GetMapping("expense")
+	public String expense(Model model) throws Exception {
+		Expense e = new Expense();
+		List<Expense> size = new ArrayList<Expense>();
+		for(int i = 0; i < expenseService.list().size(); i++) {
+			if(!expenseService.listProcess().get(i).getProcessStatus().equals("승인"))
+				size.add(e);
 		}
+		model.addAttribute("size", size.size());
+		model.addAttribute("expense", expenseService.listProcess());
+		return "/WEB-INF/admin/expense.jsp";
 	}
 	
-	@GetMapping("logout")
-	public String logout(HttpSession session) throws Exception{
-		session.invalidate();
-		return "redirect:../admin/form";
-	}
+//	@RequestMapping("login")
+//	public String login(String id, String password,
+//				HttpServletResponse response, HttpSession session, Model model
+//				) throws Exception{
+//		Admin admin = adminService.get(id, password);
+//		if(admin != null) {
+//			session.setAttribute("admin", admin);
+//			return "redirect:../admin/list";
+//		} else {
+//			session.invalidate();
+//			return "redirect: ../admin/form";
+//		}
+//	}
+//	
+//	@GetMapping("logout")
+//	public String logout(HttpSession session) throws Exception{
+//		session.invalidate();
+//		return "redirect:../admin/form";
+//	}
 	
 	// 관리자의 요청 처리
 	@PostMapping("process")

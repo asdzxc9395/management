@@ -84,7 +84,7 @@
 
 <h2>영수증</h2>
 <img src='${pageContext.servletContext.contextPath}/upload/expense/${expense.receipt}' height='150'><br>
-<input type="submit" value="확인" onclick="addDiv2(${expense.userNo});">
+<input type="submit" value="확인">
 <input type="button" value="닫기" onclick="addDiv2(${expense.userNo});">
 </form>
 

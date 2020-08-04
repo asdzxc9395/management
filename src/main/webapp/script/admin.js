@@ -33,10 +33,8 @@ function popupClose(form) {
 	}
 }
 function addDiv(no) {
-	console.log(no);
 	var url = "logList?no"+"="+no+" #logList";
-	console.log(url);
-        $( '#elList' ).load(url);
+		$( '#elList' ).load(url);
 	}
 function addDiv2(no) {
 	var url = "expenseList?no"+"="+no+" #expenseList";
@@ -44,7 +42,6 @@ function addDiv2(no) {
 }
 function addDiv3(no) {
 	var url = "expenseDetail?no"+"="+no+" #detailList";
-	console.log(url)
 	$( '#elList' ).load(url);
 }
 

@@ -17,7 +17,7 @@ body {
 div.container {
   background: white;
   border: 1px solid gray;
-  width: 600px;
+  width: 1000px;
 }
 </style>
 </head>
@@ -30,10 +30,10 @@ div.container {
 <div class='collapse navbar-collapse' id='navbarNav'>
   <ul class='navbar-nav mr-auto'>
     <li class='nav-item'>
-      <a class='nav-link' href='#'>회원 로그기록</span></a>
+      <a class='nav-link' href='list'>회원 로그기록</span></a>
     </li>
     <li class='nav-item'>
-      <a class='nav-link' href='#'>경비처리</span></a>
+      <a class='nav-link' href='expense'>경비처리</span></a>
     </li>
     <li class='nav-item'>
       <a class='nav-link' href='#'>회원관리</span></a>
@@ -48,4 +48,3 @@ div.container {
 </c:if> 
 </div>
 </nav>
-<div class='container'>

@@ -47,9 +47,7 @@
 <div id="elList"></div>
 
 
-<input type="submit" value="확인" onclick="window.close()" >
 <input type="button" value="닫기" onclick="window.close()">
-<input type="button" value="삭제" onclick="location.href='../expense/delete?no='+'${expense.expenseNo}'; window.close();">
 <script src="../../script/admin.js"></script>
 </body>
 </html>
