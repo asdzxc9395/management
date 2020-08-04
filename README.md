@@ -31,7 +31,7 @@
 
 <table>
 	<tr>
-		<th>![admin-gif](https://user-images.githubusercontent.com/58450731/89271935-60ff8700-d678-11ea-878c-371c5c54bb47.gif)</th>
+		<th>https://user-images.githubusercontent.com/58450731/89272461-26e2b500-d679-11ea-9c86-c158eda137c0.JPG</th>
 		<th>2</th>
 	</tr>
 	<tr>
