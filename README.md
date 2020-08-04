@@ -31,8 +31,8 @@
 
 <table>
 	<tr>
-		<th><img src="https://user-images.githubusercontent.com/58450731/89273636-c5bbe100-d67a-11ea-8f6f-0811cfa4d90c.gif" width="50%"></th>
-		<th><img src="https://user-images.githubusercontent.com/58450731/89273482-90af8e80-d67a-11ea-8707-c4d8813da48b.gif" width="50%"></th>
+		<th><img src="https://user-images.githubusercontent.com/58450731/89273636-c5bbe100-d67a-11ea-8f6f-0811cfa4d90c.gif" width="200px"></th>
+		<th><img src="https://user-images.githubusercontent.com/58450731/89273482-90af8e80-d67a-11ea-8707-c4d8813da48b.gif" width="200px"></th>
 	</tr>
 	<tr>
 		<th>사용자기능</th>
