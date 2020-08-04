@@ -31,7 +31,7 @@
 
 <table>
 	<tr>
-		<th><a href="https://user-images.githubusercontent.com/58450731/89272927-d28c0500-d679-11ea-9e4c-09bf5dd28d3e.gif"></th>
+		<th><img src="https://user-images.githubusercontent.com/58450731/89272927-d28c0500-d679-11ea-9e4c-09bf5dd28d3e.gif"></th>
 		<th>2</th>
 	</tr>
 	<tr>
