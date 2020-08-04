@@ -27,4 +27,9 @@ public interface ExpenseDao {
 	
 	public List<Expense> getTotalCount(int no) throws Exception;
 	
+	// 관리자 기능
+	
+	List<Expense> findAllOfProcess() throws Exception;
+	
+	List<Expense> findByProcessNo(int no) throws Exception;
 }

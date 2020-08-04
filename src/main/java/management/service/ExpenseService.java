@@ -36,4 +36,8 @@ public interface ExpenseService {
 	//생성한 엑셀 워크북을 컨트롤레에서 받게해줄 메소드
 	public SXSSFWorkbook excelFileDownloadProcess(List<Expense> list) throws Exception;
 	
+	// 관리자 기능
+	List<Expense> listProcess() throws Exception;
+	
+	List<Expense> listProcess(int no) throws Exception;
 }

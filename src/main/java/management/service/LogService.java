@@ -13,10 +13,11 @@ public interface LogService {
 
 	List<Log> list() throws Exception;
 	
-	Log get(int no) throws Exception;
+	List<Log> get(int no) throws Exception;
 	
 	List<Log> listPage(Criteria cri) throws Exception;
 
 	int getTotalCount(Criteria cri) throws Exception;
 	
+	int update(Log log) throws Exception;
 }

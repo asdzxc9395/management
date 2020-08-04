@@ -140,4 +140,16 @@ public class ExpenseServiceImpl implements ExpenseService{
 		return this.makeSimpleFruitExcelWorkbook(list);
 		
 	}
+	
+	//관리자모드
+	
+	@Override
+	public List<Expense> listProcess() throws Exception {
+		return expenseDao.findAllOfProcess();
+	}
+	
+	@Override
+	public List<Expense> listProcess(int no) throws Exception {
+		return expenseDao.findByProcessNo(no);
+	}
 }

@@ -96,6 +96,7 @@ public class ExpenseController {
 		}
 	}
 
+	// 경비 등록
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(Expense expense, MultipartFile imageFile, HttpSession session) throws Exception {
 		User user = (User) session.getAttribute("loginUser");
@@ -108,10 +109,12 @@ public class ExpenseController {
 		}
 		
 		expense.setUserNo(user.getUserNo());
+		expense.setState(0);
 		expenseService.add(expense);
 		return "redirect:../expense/list";
 	}
-
+	
+	// 경비 재신청 및 수정
 	@PostMapping("update")
 	public String update(Expense expense, MultipartFile imageFile) throws Exception {
 		if (imageFile.getSize() > 0) {
@@ -122,13 +125,14 @@ public class ExpenseController {
 			imageFile.transferTo(new File(dirPath + "/" + filename));
 			expense.setReceipt(filename);
 		}
+		expense.setState(0);
 		if (expenseService.update(expense) > 0) {
 			return "redirect:../expense/list";
 		} else {
 			throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
 		}
 	}
-
+	
 	@GetMapping("search")
 	public String search(Expense expense, Model model, Criteria cri
 			, HttpServletRequest req) throws Exception {

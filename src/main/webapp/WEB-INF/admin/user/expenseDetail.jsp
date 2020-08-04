@@ -21,8 +21,11 @@
 <body>
 
 <!-- 업데이트 -->
-<div class="container mb-5 mt-3">
-<h2>사용내역</h2>
+<div class="container mb-5 mt-3" id="detailList">
+<form action='process' method='post' enctype='multipart/form-data'>
+<input name="expenseNo" type="hidden" value="${expense.expenseNo}">
+<input name="userNo" type="hidden" value="${expense.userNo}">
+<h4>사용내역</h4>
 <table class="table table-bordered">
     <tr>
        <td>사용내역</td>
@@ -49,7 +52,7 @@
     	<td><input name="imageFile" type="file"></td>
   </tr>
 </table>
-<h2>청구내역</h2>
+<h4>청구내역</h4>
 <table class="table table-bordered">
     <tr>
        <td>처리상태</td>
@@ -63,7 +66,7 @@
    </tr>
     <tr>
        <td>처리일시</td>
-       <td><input name="processDate" type="date" value="${expense.processDate}" id="currentDate" readonly="readonly">
+       <td><input name="processDate" type="date" value="${expense.processDate}" id="currentDate">
        <script>
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 </script> 
@@ -71,18 +74,18 @@
    </tr>
     <tr>
        <td>금액</td>
-       <td><input name="approvePrice" type="text" value="${expense.approvePrice}" readonly="readonly"></td>
+       <td><input name="approvePrice" type="text" value="${expense.approvePrice}"></td>
    </tr>
     <tr>
        	<td>비고</td>
-    	<td><input name="remark" type="text" value="${expense.remark}" readonly="readonly"></td>
+    	<td><input name="remark" type="text" value="${expense.remark}"></td>
   </tr>
 </table>
 
-<img src='${pageContext.servletContext.contextPath}/upload/expense/${user.image}' height='150'><br>
-<input type="submit" value="확인" onclick="window.close()" >
-<input type="button" value="닫기" onclick="window.close()">
-<input type="button" value="삭제" onclick="location.href='../expense/delete?no='+'${expense.expenseNo}'; window.close();">
+<h2>영수증</h2>
+<img src='${pageContext.servletContext.contextPath}/upload/expense/${expense.receipt}' height='150'><br>
+<input type="submit" value="확인" onclick="addDiv2(${expense.userNo});">
+<input type="button" value="닫기" onclick="addDiv2(${expense.userNo});">
 </form>
 
 </body>

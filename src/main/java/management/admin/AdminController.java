@@ -1,7 +1,8 @@
 package management.admin;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import management.domain.Admin;
-import management.domain.Log;
+import management.domain.Expense;
 import management.domain.User;
 import management.service.AdminService;
 import management.service.ExpenseService;
@@ -88,5 +90,45 @@ public class AdminController {
 	public String logout(HttpSession session) throws Exception{
 		session.invalidate();
 		return "redirect:../admin/form";
+	}
+	
+	// 관리자의 요청 처리
+	@PostMapping("process")
+	public String process(Expense expense, MultipartFile imageFile) throws Exception {
+		if (imageFile.getSize() > 0) {
+			System.out.println("ㅡㅡㅡㅡㅡㅡㅡ");
+			String dirPath = servletContext.getRealPath("/upload/expense");
+			String filename = UUID.randomUUID().toString();
+			System.out.println(filename + "\n" + dirPath);
+			imageFile.transferTo(new File(dirPath + "/" + filename));
+			expense.setReceipt(filename);
+		}
+		expense.setState(1);
+		if (expenseService.update(expense) > 0) {
+			return "redirect:../admin/detail?no="+expense.getUserNo();
+		} else {
+			throw new Exception("변경할 게시물 번호가 유효하지 않습니다.");
+		}
+	}
+	
+	@GetMapping("detail")
+	public String detail(int no, Model model) throws Exception {
+		model.addAttribute("user", userService.get(no));
+		return "/WEB-INF/admin/detail.jsp";
+	}
+	@GetMapping("logList")
+	public String logList(int no, Model model) throws Exception {
+		model.addAttribute("lList", logService.get(no));
+		return "/WEB-INF/admin/user/logList.jsp";
+	}
+	@GetMapping("expenseList")
+	public String expenseList(int no, Model model) throws Exception {
+		model.addAttribute("eList", expenseService.listProcess(no));
+		return "/WEB-INF/admin/user/expenseList.jsp";
+	}
+	@GetMapping("expenseDetail")
+	public String expenseDetail(int no, Model model) throws Exception {
+		model.addAttribute("expense", expenseService.get(no));
+		return "/WEB-INF/admin/user/expenseDetail.jsp";
 	}
 }

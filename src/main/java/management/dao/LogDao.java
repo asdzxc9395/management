@@ -12,9 +12,11 @@ public interface LogDao {
 
 	public List<Log> findAll() throws Exception;
 
-	public Log findByNo(int no) throws Exception;
+	public List<Log> findByNo(int no) throws Exception;
 
 	List<Log> listPage(Criteria cri) throws Exception;
 
 	public int getTotalCount(Criteria cri) throws Exception;
+	
+	public int update(Log log) throws Exception;
 }

@@ -34,7 +34,7 @@ public class LogServiceImpl implements LogService{
 	}
 
 	@Override
-	public Log get(int no) throws Exception {
+	public List<Log> get(int no) throws Exception {
 		return logDao.findByNo(no);
 	}
 
@@ -46,6 +46,11 @@ public class LogServiceImpl implements LogService{
 	@Override
 	public int getTotalCount(Criteria cri) throws Exception {
 		return logDao.getTotalCount(cri);
+	}
+	
+	@Override
+	public int update(Log log) throws Exception {
+		return logDao.update(log);
 	}
 	
 }

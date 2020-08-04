@@ -16,10 +16,11 @@
 		<result column="receipt" property="receipt" />
 		<result column="process_date" property="processDate" />
 		<result column="remark" property="remark" />
+		<result column="state" property="state" />
 	</resultMap>
 
 	<select id="findAll" resultMap="ExpenseMap">
-select * from expense;
+	select * from expense;
 	</select>
 
 	<select id="findByNo" resultMap="ExpenseMap"
@@ -31,6 +32,16 @@ select * from expense;
 		where
 		expense_no = #{expenseNo}	
 	</select>
+	
+		<select id="findAllOfProcess" resultMap="ExpenseMap">
+		select 
+		* 
+		from 
+		expense
+		order by state,
+		expense_no desc
+		</select>
+	
 	<select id="findByUserNo" resultMap="ExpenseMap"
 		parameterType="int">
 	select * 
@@ -42,16 +53,27 @@ select * from expense;
 			expense_no 
 		desc limit 10;
 	</select>
+	
+	<select id="findByProcessNo" resultMap="ExpenseMap"
+		parameterType="int">
+		select * 
+		from 
+			expense 
+		where 
+			user_no=#{userNo}
+		order by state desc,
+			expense_no asc;
+	</select>
 
 	<insert id="insert" parameterType="Expense">
 		insert into expense
 		(user_no, 
 		name, use_date, use_price, approve_price,
 		 process_status, receipt, 
-		 process_date, remark)
+		 process_date, remark, state)
 		values(#{userNo},
 		#{name}, #{useDate}, #{usePrice}, #{approvePrice}, #{processStatus}, 
-		#{receipt}, #{processDate}, #{remark})
+		#{receipt}, #{processDate}, #{remark}, #{state})
 		    <selectKey keyProperty="expenseNo" resultType="int">
         SELECT LAST_INSERT_ID()
     </selectKey>
@@ -83,6 +105,7 @@ select * from expense;
 			<if test="receipt != null and receipt != ''">receipt=#{receipt},</if>
 			<if test="processDate != null">process_date=#{processDate},</if>
 			<if test="remark != null and remark != ''">remark=#{remark}</if>
+			<if test="state != null and state != ''">state=#{state}</if>
 		</set>
 		where
 		expense_no = #{expenseNo}
@@ -97,27 +120,6 @@ select * from expense;
     </where>
   </select>
 	
-<!-- 	  
-	
-	<select id="listPage" resultMap="ExpenseMap">
-		select *
-		from expense
-		where expense_no >= 0
-		<include refid="searchCondition"></include>
-		order by expense_no desc limit #{pageStart}, #{perPageNum}
-	</select>
-  <sql id="searchCondition">
-		<if test="searchType != null">
-      <if test="name != null and nameType == 'n'.toString()">
-      and name like concat('%', #{name}, '%')</if>
-      <if test="registrationDate != null regType == 'r'.toString()">
-      and registrationDate >= #{registrationDate}</if>
-      <if test="processStatus != null proType == 'p'.toString()">
-      and process_status like concat('%', #{processStatus}, '%')</if>
-		</if>
-	</sql>
--->
-
 	<select id="getTotalCount" resultMap="ExpenseMap"
 		parameterType="int">
 		select *

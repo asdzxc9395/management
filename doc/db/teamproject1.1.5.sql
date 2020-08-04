@@ -63,7 +63,8 @@ CREATE TABLE expense (
    		registration_date DATE DEFAULT CURRENT_DATE,           -- 등록일
 		receipt VARCHAR(255) NULL,
 		process_date DATETIME NULL,
-		remark VARCHAR(70) NULL
+		remark VARCHAR(70) NULL,
+		state INTEGER NOT NULL
 );
 
 -- 경비

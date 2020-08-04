@@ -20,7 +20,16 @@ public class Expense implements Serializable{
 	private Date processDate;
 	private String receipt;
 	private String remark;
+	private int state;
 	
+	
+	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
@@ -92,7 +101,7 @@ public class Expense implements Serializable{
 		return "Expense [expenseNo=" + expenseNo + ", userNo=" + userNo + ", name=" + name + ", useDate=" + useDate
 				+ ", usePrice=" + usePrice + ", approvePrice=" + approvePrice + ", processStatus=" + processStatus
 				+ ", registrationDate=" + registrationDate + ", processDate=" + processDate + ", receipt=" + receipt
-				+ ", remark=" + remark + "]";
+				+ ", remark=" + remark + ", state=" + state + "]";
 	}
 	
 

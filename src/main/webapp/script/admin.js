@@ -16,12 +16,12 @@ function doExcelDownloadProcess(){
 }
 function add(){
 	window.name ="listPage"
-		var url="../expense/form";
+		var url="../admin/form";
 	window.open(url,"addForm","width=500,height=400,left=600");
 }
 function update(no){
 	window.name ="listPage"
-		var url="../expense/detail";
+		var url="../admin/detail";
 	window.open(url + "?no=" + no,"updateForm","width=800,height=800,left=600");
 }
 function popupClose(form) {
@@ -32,3 +32,19 @@ function popupClose(form) {
 		self.close();
 	}
 }
+function addDiv(no) {
+	console.log(no);
+	var url = "logList?no"+"="+no+" #logList";
+	console.log(url);
+        $( '#elList' ).load(url);
+	}
+function addDiv2(no) {
+	var url = "expenseList?no"+"="+no+" #expenseList";
+	$( '#elList' ).load(url);
+}
+function addDiv3(no) {
+	var url = "expenseDetail?no"+"="+no+" #detailList";
+	console.log(url)
+	$( '#elList' ).load(url);
+}
+

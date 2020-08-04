@@ -31,6 +31,9 @@
 		values(
 		#{userNo},
 		#{logIn}, #{logOut})
+	<selectKey keyProperty="logNo" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
 	</insert>
 
 	<delete id="delete" parameterType="int">
@@ -52,5 +55,14 @@
 		from log
 		where user_no >= 0
 	</select>
+	
+	<update id="update" parameterType="Log">
+		update log
+		<set>
+			<if test="logOut != null and logOut != ''">log_out=#{logOut}</if>
+		</set>
+		where
+		log_no = #{logNo}
+	</update>
 
 </mapper>

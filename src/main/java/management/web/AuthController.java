@@ -73,8 +73,8 @@ public class AuthController {
 			log.setUserNo(user.getUserNo());
 			log.setLogIn(logIn);
 			logService.add(log);
-			session.setAttribute("loginUser", user);
 			session.setAttribute("log", log);
+			session.setAttribute("loginUser", user);
 			return "redirect:../expense/list";
 		} else {
 			session.invalidate();
@@ -84,12 +84,10 @@ public class AuthController {
 	@GetMapping("logout")
 	public String logout(HttpSession session) throws Exception {
 		Log log = (Log) session.getAttribute("log");
-		
-				
 		String logOut = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis());
-		
 		log.setLogOut(logOut);
-		logService.add(log);
+		System.out.println(log);
+		logService.update(log);
 		session.invalidate();
 		return "redirect:../auth/form";
 	}
