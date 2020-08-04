@@ -31,8 +31,8 @@
 
 <table>
 	<tr>
-		<th><img src="https://user-images.githubusercontent.com/58450731/89272927-d28c0500-d679-11ea-9e4c-09bf5dd28d3e.gif" width="90%"></th>
-		<th><img src="https://user-images.githubusercontent.com/58450731/89273482-90af8e80-d67a-11ea-8707-c4d8813da48b.gif" width="90%"></th>
+		<th><img src="https://user-images.githubusercontent.com/58450731/89273636-c5bbe100-d67a-11ea-8f6f-0811cfa4d90c.gif" width="60%"></th>
+		<th><img src="https://user-images.githubusercontent.com/58450731/89273482-90af8e80-d67a-11ea-8707-c4d8813da48b.gif" width="60%"></th>
 	</tr>
 	<tr>
 		<th>3</th>
