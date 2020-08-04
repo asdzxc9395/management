@@ -32,17 +32,6 @@
   </tr>
 </c:forEach>
 </tbody>
-  <tfoot>
-  <tr>
-  <th>합계</th>
-       <th></th>
-       <th></th>
-       <th>${usePrice}</th>
-       <th>${approvePrice}</th>
-       <th></th>
-       <th></th>
-  </tr>
-  </tfoot>
 </table>
 </div> 
 <script src="../../script/event.js"></script>
