@@ -31,7 +31,7 @@
 
 <table>
 	<tr>
-		<th>1</th>
+		<th>![admin-gif](https://user-images.githubusercontent.com/58450731/89271935-60ff8700-d678-11ea-878c-371c5c54bb47.gif)</th>
 		<th>2</th>
 	</tr>
 	<tr>
