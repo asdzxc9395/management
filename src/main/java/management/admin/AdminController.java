@@ -47,30 +47,7 @@ public class AdminController {
 	
 	@Autowired
 	ServletContext servletContext;
-	
-//	@GetMapping("form")
-//	public String form() {
-//		return "/WEB-INF/admin/form.jsp";
-//	}
-	
-	@PostMapping("update")
-	public String update(Admin admin) throws Exception {
-		adminService.update(admin);
-		return "/WEB-INF/admin/list.jsp";
-	}
-	
-	@PostMapping("reset")
-	public String reset(Admin admin) throws Exception {
-		adminService.reset(admin);
-		return "/WEB-INF/admin/list.jsp";
-	}
-	
-	@GetMapping("list")
-	public String list(Admin admin, Model model) throws Exception {
-		List<User> uList  = userService.list();
-		model.addAttribute("uList", uList);
-		return "/WEB-INF/admin/list.jsp";
-	}
+
 	@GetMapping("expense")
 	public String expense(Model model) throws Exception {
 		Expense e = new Expense();
@@ -84,25 +61,13 @@ public class AdminController {
 		return "/WEB-INF/admin/expense.jsp";
 	}
 	
-//	@RequestMapping("login")
-//	public String login(String id, String password,
-//				HttpServletResponse response, HttpSession session, Model model
-//				) throws Exception{
-//		Admin admin = adminService.get(id, password);
-//		if(admin != null) {
-//			session.setAttribute("admin", admin);
-//			return "redirect:../admin/list";
-//		} else {
-//			session.invalidate();
-//			return "redirect: ../admin/form";
-//		}
-//	}
-//	
-//	@GetMapping("logout")
-//	public String logout(HttpSession session) throws Exception{
-//		session.invalidate();
-//		return "redirect:../admin/form";
-//	}
+	@GetMapping("detailExpense")
+	public String detailExpense(int no, Model model) throws Exception {
+		model.addAttribute("expense", expenseService.get(no));
+		return "/WEB-INF/admin/expenseDetail.jsp";
+	}
+	
+
 	
 	// 관리자의 요청 처리
 	@PostMapping("process")
@@ -126,7 +91,7 @@ public class AdminController {
 	@GetMapping("detail")
 	public String detail(int no, Model model) throws Exception {
 		model.addAttribute("user", userService.get(no));
-		return "/WEB-INF/admin/detail.jsp";
+		return "/WEB-INF/admin/user/detail.jsp";
 	}
 	@GetMapping("logList")
 	public String logList(int no, Model model) throws Exception {
@@ -144,3 +109,24 @@ public class AdminController {
 		return "/WEB-INF/admin/user/expenseDetail.jsp";
 	}
 }
+
+
+//@RequestMapping("login")
+//public String login(String id, String password,
+//			HttpServletResponse response, HttpSession session, Model model
+//			) throws Exception{
+//	Admin admin = adminService.get(id, password);
+//	if(admin != null) {
+//		session.setAttribute("admin", admin);
+//		return "redirect:../admin/list";
+//	} else {
+//		session.invalidate();
+//		return "redirect: ../admin/form";
+//	}
+//}
+//
+//@GetMapping("logout")
+//public String logout(HttpSession session) throws Exception{
+//	session.invalidate();
+//	return "redirect:../admin/form";
+//}

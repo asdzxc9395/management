@@ -24,6 +24,11 @@ function update(no){
 		var url="../admin/detail";
 	window.open(url + "?no=" + no,"updateForm","width=800,height=800,left=600");
 }
+function updateExpense(no){
+	window.name ="listPage"
+		var url="../admin/detailExpense";
+	window.open(url + "?no=" + no,"updateExpenseForm","width=800,height=800,left=600");
+}
 function popupClose(form) {
 	form.target = opener.name;
 	form.submit();

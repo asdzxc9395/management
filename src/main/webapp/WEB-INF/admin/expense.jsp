@@ -17,7 +17,7 @@
    </thead>
    <c:forEach items="${expense}" var="item">
    <tbody>
-  <tr onclick="update(${item.expenseNo})" id="no">
+  <tr onclick="updateExpense(${item.expenseNo})" id="no">
     <td>${item.expenseNo}</td> 
     <td>${item.name}</td> 
     <td>${item.usePrice}</td> 
@@ -34,6 +34,6 @@
 </tbody>
 </table>
 </div> 
-<script src="../../script/event.js"></script>
+<script src="../../script/admin.js"></script>
 </body>
 </html>
