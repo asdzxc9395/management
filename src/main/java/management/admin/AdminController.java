@@ -67,7 +67,12 @@ public class AdminController {
 		return "/WEB-INF/admin/expenseDetail.jsp";
 	}
 	
-
+	@GetMapping("list")
+	public String list(Admin admin, Model model) throws Exception {
+		List<User> uList  = userService.list();
+		model.addAttribute("uList", uList);
+		return "/WEB-INF/admin/list.jsp";
+	}
 	
 	// 관리자의 요청 처리
 	@PostMapping("process")

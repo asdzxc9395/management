@@ -35,18 +35,6 @@ public class AdminWebConfig {
   //    return vr;
   //  }
 
-  @Bean
-  public ViewResolver tilesViewResolver() {
-    UrlBasedViewResolver vr = new UrlBasedViewResolver();
-    vr.setSuffix(".admin");
-
-    // Tiles 설정에 때라 템플릿을 실행할 뷰 처리기를 등록한다.
-    vr.setViewClass(TilesView.class);
-
-    // 뷰리졸버의 우선 순위를 InternalResourceViewResolver 보다 우선하게 한다.
-    vr.setOrder(1);
-    return vr;
-  }
 
   @Bean
   public MultipartResolver multipartResolver() {
