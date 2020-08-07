@@ -21,6 +21,9 @@
        		<th>등록일</th>
    		</tr>
    </thead>
+   
+   <c:set var = "uTotal" value ="0" />
+   <c:set var = "aTotal" value ="0" />
    <c:forEach items="${list}" var="item">
    <tbody>
   <tr onclick="update(${item.expenseNo})" id="no">
@@ -32,15 +35,19 @@
     <td>${item.processStatus}</td>
     <td>${item.registrationDate}</td>
   </tr>
+  <c:set var="uTotal" value="${uTotal + item.usePrice}"/>
+  <c:set var="aTotal" value="${aTotal + item.approvePrice}"/>
 </c:forEach>
 </tbody>
+
+
   <tfoot>
   <tr>
   <th>합계</th>
        <th></th>
        <th></th>
-       <th>${usePrice}</th>
-       <th>${approvePrice}</th>
+       <th><c:out value="${uTotal}"/></th>
+       <th><c:out value="${aTotal}"/></th>
        <th></th>
        <th></th>
   </tr>

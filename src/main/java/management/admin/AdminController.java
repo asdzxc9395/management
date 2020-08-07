@@ -114,24 +114,3 @@ public class AdminController {
 		return "/WEB-INF/admin/user/expenseDetail.jsp";
 	}
 }
-
-
-//@RequestMapping("login")
-//public String login(String id, String password,
-//			HttpServletResponse response, HttpSession session, Model model
-//			) throws Exception{
-//	Admin admin = adminService.get(id, password);
-//	if(admin != null) {
-//		session.setAttribute("admin", admin);
-//		return "redirect:../admin/list";
-//	} else {
-//		session.invalidate();
-//		return "redirect: ../admin/form";
-//	}
-//}
-//
-//@GetMapping("logout")
-//public String logout(HttpSession session) throws Exception{
-//	session.invalidate();
-//	return "redirect:../admin/form";
-//}

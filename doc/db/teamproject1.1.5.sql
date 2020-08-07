@@ -141,10 +141,10 @@ ALTER TABLE log
 	)
 	ON DELETE CASCADE;
 	
--- 이벤트 
+-- 이벤트 (10분에 10번 반복) => 6분마다 1번
 CREATE EVENT IF NOT EXISTS log_delete
     ON SCHEDULE
-       EVERY 1 DAY
+       EVERY 10 HOUR
     ON COMPLETION NOT PRESERVE
     ENABLE
     COMMENT "로그인, 로그아웃 기록 삭제"

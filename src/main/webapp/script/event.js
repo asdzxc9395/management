@@ -32,3 +32,4 @@ function popupClose(form) {
 		self.close();
 	}
 }
+

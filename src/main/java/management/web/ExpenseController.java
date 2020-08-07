@@ -51,32 +51,8 @@ public class ExpenseController {
 		      no = ((User) session.getAttribute("loginUser")).getUserNo();
 		    }
 		List<Expense> expense = expenseService.list(no);
-		
 		model.addAttribute("list",expense);
-
-		int usePrice = 0;
-		int approvePrice = 0;
-		int b = 0;
-		for(int i = 0; i < expense.size(); i++) {
-			if(expense.get(i).getUsePrice() == null) {
-				b = 0;	
-			} else {
-				b = Integer.parseInt(expense.get(i).getUsePrice());
-			}
-			usePrice+=b;
-		}
-		for(int i = 0; i < expense.size(); i++) {
-			if(expense.get(i).getApprovePrice() == null) {
-				b = 0;	
-			} else {
-				b = Integer.parseInt(expense.get(i).getApprovePrice());
-			}
-			approvePrice+=b;
-		}
-		
 		model.addAttribute("size", expenseService.getTotalCount(no).size());
-		model.addAttribute("approvePrice", approvePrice);
-		model.addAttribute("usePrice", usePrice);
 
 		return "/WEB-INF/jsp/expense/list.jsp";
 	}
@@ -137,8 +113,6 @@ public class ExpenseController {
 	public String search(Expense expense, Model model, Criteria cri
 			, HttpServletRequest req) throws Exception {
 		HashMap<String, Object> map = new HashMap<>();
-		System.out.println(123123);
-		System.out.println(expense.getRegistrationDate());
 		if (expense.getName().length() > 0) {
 			map.put("name", expense.getName());
 		}
